@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="bg-[#c5e4e7] min-h-screen">
       <div className="flex justify-center">
-        <img src={SplitterLogo} alt="Tip Logo" className=" mt-[120px] mb-10" />
+        <img src={SplitterLogo} alt="Tip Logo" className=" mt-[80px] mb-10" />
       </div>
 
       <TipCard />

@@ -75,6 +75,7 @@ const TipCard = () => {
                 type="number"
                 value={bill}
                 onChange={(e) => setBill(e.target.value)}
+                placeholder='0' 
                 className={`w-full bg-[#f4fafa] py-3 px-4 pl-10 rounded-md text-right text-[#00494d] text-2xl cursor-pointer ${ notZeroBill ? 'border-[#26c0ab]' : 'border-none' }`}
               />
             </div>
@@ -109,6 +110,7 @@ const TipCard = () => {
             <span className="absolute left-4 top-5 text-[#7f9c9f]"><img src={PersonLogo}></img></span>
               <input
                 type="number"
+                placeholder='0' 
                 min="1"
                 value={numberOfPeople}
                 onChange={(e) => setNumberOfPeople(e.target.value)}
