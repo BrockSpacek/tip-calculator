@@ -6,10 +6,12 @@ const TipCard = () => {
   const [bill, setBill] = useState(0);
   const [numberOfPeople, setNumberOfPeople] = useState(1);
   const [tip, setTip] = useState(0);
+  const [selectedTipIndex, setSelectedTipIndex] = useState(null);
   const [tipAmount, setTipAmount] = useState(0.00);
   const [total, setTotal] = useState(0.00);
   const [notZero, setNotZero] = useState(true);
-  const [notZeroBill, setNotZeroBill] = useState(false)
+  const [notZeroBill, setNotZeroBill] = useState(false);
+  const [isCustomTip, setIsCustomTip] = useState(false);
 
   const tipOptions = [5, 10, 15, 25, 50];
 
@@ -30,8 +32,6 @@ const TipCard = () => {
       }else{
         setNotZeroBill(true);
       }
-
-
       
       if (billNumber !== 0 && people !== 0) {
         const tipPercentage = tipNumber / 100;
@@ -55,10 +55,20 @@ const TipCard = () => {
     setTip(0);
     setTipAmount("0.00");
     setTotal("0.00");
+    setSelectedTipIndex(null);
+    setIsCustomTip(false);
   };
 
-  const handleTipSelect = (percentage) => {
+  const handleTipSelect = (percentage, index) => {
     setTip(percentage);
+    setSelectedTipIndex(index);
+    setIsCustomTip(false);
+  };
+
+  const handleCustomTipChange = (e) => {
+    setTip(e.target.value);
+    setSelectedTipIndex(null);
+    setIsCustomTip(true);
   };
 
   return (
@@ -70,7 +80,7 @@ const TipCard = () => {
           <div className="mb-8">
             <label className=" text-[#5e7a7d] text-sm mb-2">Bill</label>
             <div className="relative">
-              <span className="absolute left-4 top-5 text-[#7f9c9f]"><img src={DollarIcon}></img></span>
+              <span className="absolute left-4 top-5 text-[#7f9c9f]"><img src={DollarIcon} alt="Dollar icon" /></span>
               <input
                 type="number"
                 value={bill}
@@ -85,11 +95,15 @@ const TipCard = () => {
           <div className="mb-8">
             <label className="block text-[#5e7a7d] text-sm mb-2">Select Tip %</label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {tipOptions.map((percentage) => (
+              {tipOptions.map((percentage, index) => (
                 <button
                   key={percentage}
-                  onClick={() => handleTipSelect(percentage)}
-                  className="py-3 rounded-md text-2xl text-white bg-[#00494d] hover:bg-[#26c0ab] hover:text-[#00494d] transition-colors"
+                  onClick={() => handleTipSelect(percentage, index)}
+                  className={`py-3 rounded-md text-2xl ${
+                    selectedTipIndex === index 
+                      ? "bg-[#26c0ab] text-[#00494d]" 
+                      : "bg-[#00494d] text-white hover:bg-[#26c0ab] hover:text-[#00494d]"
+                  } transition-colors`}
                 >
                   {percentage}%
                 </button>
@@ -97,17 +111,22 @@ const TipCard = () => {
               <input
                 type="number"
                 placeholder="Custom"
-                onChange={(e) => setTip(e.target.value)}
-                className="bg-[#f4fafa] py-3 px-4 rounded-md text-center text-[#00494d] text-2xl cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#26c0ab]"
+                onChange={handleCustomTipChange}
+                className={`bg-[#f4fafa] py-3 px-4 rounded-md text-center text-[#00494d] text-2xl cursor-pointer border-none focus:outline-none ${
+                  isCustomTip ? 'border-[#26c0ab]' : ''
+                }`}
               />
             </div>
           </div>
           
         
           <div>
-            <label className="block text-[#5e7a7d] text-sm mb-2">Number of People</label>
+            <div className='flex justify-between'>
+              <p className='text-[#5e7a7d]'>Number of People</p>
+              <p className='text-orange-500 pr-2'>{notZero ? "" : "Can't be zero"}</p>
+            </div>
             <div className="relative">
-            <span className="absolute left-4 top-5 text-[#7f9c9f]"><img src={PersonLogo}></img></span>
+              <span className="absolute left-4 top-5 text-[#7f9c9f]"><img src={PersonLogo} alt="Person icon" /></span>
               <input
                 type="number"
                 placeholder='0' 
