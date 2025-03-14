@@ -84,7 +84,7 @@ const TipCard = () => {
               <input
                 type="number"
                 value={bill}
-                onChange={(e) => setBill(e.target.value)}
+                onChange={(event) => setBill(event.target.value)}
                 placeholder='0' 
                 className={`w-full bg-[#f4fafa] py-3 px-4 pl-10 rounded-md text-right text-[#00494d] text-2xl cursor-pointer ${ notZeroBill ? 'border-[#26c0ab]' : 'border-none' }`}
               />
@@ -130,9 +130,8 @@ const TipCard = () => {
               <input
                 type="number"
                 placeholder='0' 
-                min="1"
                 value={numberOfPeople}
-                onChange={(e) => setNumberOfPeople(e.target.value)}
+                onChange={(event) => setNumberOfPeople(event.target.value)}
                 className={`w-full bg-[#f4fafa] py-3 px-4 pl-10 rounded-md text-right text-[#00494d] text-2xl cursor-pointer ${ notZero ? 'border-none' : 'border-red-600' }`}
               />
             </div>
